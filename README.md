@@ -1,10 +1,13 @@
 # Dependencias
 Baixar e instalar o docker desktop
+
 Baixar o grafana, ex: grafana-7.2.0-beta1
+
 Baixar o prometheus, ex: prometheus-2.21.0.windows-amd64
 
 # Configuração
 Varrer os diretórios e trocar o IP 192.168.15.25 para o IP da sua máquina
+
 Editar o arquivo prometheus.yml e substituir o scrape_configs pelo trecho abaixo:
 
 scrape_configs:
@@ -46,8 +49,9 @@ scrape_configs:
 # Execução
 
 Abrir a workpace no Eclipse e gerar os arquivos .jar pelo maven utilizando o comando 'clean package'
+
 Copiar os .jars gerados na pasta docker/files
+
 Ir na pasta docker e executar o comando 'docker-compose up --build'
+
 Após os serviços iniciarem, subir o grafana e o prometheus
-
-
