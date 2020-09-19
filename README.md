@@ -56,6 +56,10 @@ Ir na pasta 'docker' e executar o comando pelo CMD 'docker-compose up --build'
 
 Após os serviços iniciarem, subir o grafana e o prometheus
 
+Importar o dashboard que está na pasta _files para o Grafana
+
+Importar o projeto postman que está na pasta _files para fazer os testes
+
 # Links
 
 Eureka: http://localhost:8761/
