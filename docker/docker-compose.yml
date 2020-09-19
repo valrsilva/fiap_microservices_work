@@ -1,0 +1,103 @@
+version: '2.2'
+services:
+    config-server:
+        container_name: config-server
+        build:
+            context: .
+            dockerfile: Dockerfile-configserver
+        image: config-server:latest
+        expose:
+            - 8888
+        ports:
+            - 8888:8888
+        networks:
+            - emp-network
+        volumes:
+            - config-repo:/var/lib/config-repo
+    eureka-server:
+        container_name: eureka-server
+        build:
+            context: .
+            dockerfile: Dockerfile-eurekaserver
+        image: eureka-server:latest
+        expose:
+            - 8761
+        ports:
+            - 8761:8761
+        networks:
+            - emp-network
+    kanban-issues:
+        container_name: kanban-issues
+        build:
+            context: .
+            dockerfile: Dockerfile-issues
+        image: kanban-issues:latest
+        environment:
+            SPRING_CLOUD_CONFIG_URI: http://192.168.15.25:8888
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://192.168.15.25:8761/eureka/
+        entrypoint: /opt/bin/entrypoint-issues.sh
+        expose:
+            - 8081
+        ports:
+            - 8081:8081
+        networks:
+            - emp-network
+        links:
+            - config-server:config-server
+            - eureka-server:eureka-server
+        depends_on:
+            - config-server
+            - eureka-server
+        logging:
+            driver: json-file
+    kanban-dashboards:
+        container_name: kanban-dashboards
+        build:
+            context: .
+            dockerfile: Dockerfile-dashboards
+        image: kanban-dashboards:latest
+        environment:
+            SPRING_CLOUD_CONFIG_URI: http://192.168.15.25:8888
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://192.168.15.25:8761/eureka/
+        entrypoint: /opt/bin/entrypoint-dashboards.sh
+        expose:
+            - 8080
+        ports:
+            - 8080:8080
+        networks:
+            - emp-network
+        links:
+            - config-server:config-server
+            - eureka-server:eureka-server
+        depends_on:
+            - config-server
+            - eureka-server
+        logging:
+            driver: json-file
+    zuul-gateway:
+        container_name: zuul-gateway
+        build:
+            context: .
+            dockerfile: Dockerfile-zuulgateway
+        image: zuul-gateway:latest
+        environment:
+            SPRING_CLOUD_CONFIG_URI: http://192.168.15.25:8888
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://192.168.15.25:8761/eureka/
+        expose:
+            - 8084
+        ports:
+            - 8084:8084
+        networks:
+            - emp-network
+        links:
+            - eureka-server:eureka-server
+        depends_on:
+            - eureka-server
+        logging:
+            driver: json-file
+networks:
+    emp-network:
+        driver: bridge
+volumes:
+    config-repo:
+        external: true

@@ -1,0 +1,2 @@
+docker build --file=Dockerfile-back --tag=kanban-dashboards:latest --rm=true .
+docker run --name=kanban-dashboards --publish=8080:8080 kanban-dashboards:latest

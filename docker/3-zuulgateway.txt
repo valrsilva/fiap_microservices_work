@@ -1,0 +1,2 @@
+docker build --file=Dockerfile-zuulgateway --tag=zuul-gateway:latest --rm=true .
+docker run --name=zuul-gateway --publish=8084:8084 zuul-gateway:latest

@@ -1,0 +1,2 @@
+docker build --file=Dockerfile-eurekaserver --tag=eureka-server:latest --rm=true .
+docker run --name=eureka-server --publish=8761:8761 eureka-server:latest

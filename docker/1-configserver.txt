@@ -1,0 +1,6 @@
+docker build --file=Dockerfile-configserver --tag=config-server:latest --rm=true .
+docker volume create --name=config-repo
+docker run --name=config-server --publish=8888:8888 --volume=config-repo:/var/lib/config-repo config-server:latest
+
+
+

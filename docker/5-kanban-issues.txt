@@ -1,0 +1,2 @@
+docker build --file=Dockerfile-issues --tag=kanban-issues:latest --rm=true .
+docker run --name=kanban-issues --publish=8081:8081 kanban-issues:latest
