@@ -50,8 +50,18 @@ scrape_configs:
 
 Abrir a workpace no Eclipse e gerar os arquivos .jar pelo maven utilizando o comando 'clean package'
 
-Copiar os .jars gerados na pasta docker/files
+Copiar os .jars que foram gerados nas pastas /target para a pasta docker/files
 
-Ir na pasta docker e executar o comando 'docker-compose up --build'
+Ir na pasta 'docker' e executar o comando pelo CMD 'docker-compose up --build'
 
 Após os serviços iniciarem, subir o grafana e o prometheus
+
+# Links
+
+Eureka: http://localhost:8761/
+
+Prometheus: http://localhost:9090/targets
+
+Grafana: http://localhost:3000
+
+
